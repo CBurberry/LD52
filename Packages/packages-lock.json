@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": {
+      "version": "file:com.cysharp.unitask@9b95f3b9f6",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.collab-proxy": {
       "version": "1.15.18",
       "depth": 0,
