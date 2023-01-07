@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Playables;
 
 public class Conductor : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Conductor : MonoBehaviour
 
     //Current song position, in seconds
     public float songPosition;
+    public static float songPositionStatic;
 
     //Current song position, in beats
     public float songPositionInBeats;
@@ -27,10 +29,14 @@ public class Conductor : MonoBehaviour
 
     [SerializeField] private Slider songprogress;
 
+    // 
+    
 
 
-    void Awake()
+
+    void Start()
     {
+        
         //Calculate the number of seconds in each beat
         secPerBeat = 60f / songBpm;
 
@@ -38,7 +44,7 @@ public class Conductor : MonoBehaviour
         dspSongTime = (float)AudioSettings.dspTime;
 
         //Start the music
-        musicSource.Play();
+        //musicSource.Play();
 
         songprogress.maxValue = musicSource.clip.length;
     }
@@ -52,6 +58,10 @@ public class Conductor : MonoBehaviour
         songPositionInBeats = songPosition / secPerBeat;
 
         songprogress.value = songPosition;
+        songPositionStatic = songPosition;
 
     }
+    
+
+
 }
