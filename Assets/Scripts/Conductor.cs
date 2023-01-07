@@ -60,6 +60,7 @@ public class Conductor : MonoBehaviour
         songprogress.value = songPosition;
         songPositionStatic = songPosition;
 
+
     }
     
 
