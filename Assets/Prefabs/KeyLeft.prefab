@@ -29,7 +29,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7259177853764333306, guid: ae5875ac89f6ff44986607ba10f06174, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7259177853764333306, guid: ae5875ac89f6ff44986607ba10f06174, type: 3}
       propertyPath: m_AnchorMin.x
@@ -37,7 +37,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7259177853764333306, guid: ae5875ac89f6ff44986607ba10f06174, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7259177853764333306, guid: ae5875ac89f6ff44986607ba10f06174, type: 3}
       propertyPath: m_SizeDelta.x
@@ -77,11 +77,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7259177853764333306, guid: ae5875ac89f6ff44986607ba10f06174, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 25
+      value: 94.8
       objectReference: {fileID: 0}
     - target: {fileID: 7259177853764333306, guid: ae5875ac89f6ff44986607ba10f06174, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7259177853764333306, guid: ae5875ac89f6ff44986607ba10f06174, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -97,3 +97,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae5875ac89f6ff44986607ba10f06174, type: 3}
+--- !u!1 &587850323666642808 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5558411969148226395, guid: ae5875ac89f6ff44986607ba10f06174, type: 3}
+  m_PrefabInstance: {fileID: 4975075699164687395}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &799192263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587850323666642808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc629be5223755347aea6d08d55380b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rect: {fileID: 0}

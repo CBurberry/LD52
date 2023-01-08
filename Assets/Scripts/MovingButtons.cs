@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 public class MovingButtons : MonoBehaviour
 {
-    private float spawnTime = 1444;
-    [SerializeField] private RectTransform rect;
+    [SerializeField] private float spawnTime;
+    private RectTransform rect;
     
     // Start is called before the first frame update
     void Awake()
     {
         //spawntime = timeline time
         rect = this.GetComponent<RectTransform>();
+        spawnTime = ButtonSpawner.timelineTime;
     }
 
     // Start is called before the first frame update
@@ -26,7 +27,8 @@ public class MovingButtons : MonoBehaviour
     void Update()
     {
         //transform = spawntime - current song timestamp
-        float re = spawnTime - (Conductor.songPositionStatic*777);
+        // Every beat it should move one and this is in seconds so first convert to beats, each beat, the next row should reach the hitbox
+        float re = (spawnTime - Conductor.songPositionStatic)*(120/60)*(1444/8) + 1444; //1444 is the width of the UI element, 120 is the BPM, 60 is bpm -> bps, 8 is the beats in a whole screens distance, +X is the relative starting position
         //Debug.Log(re);
         // var pos = rect.localPosition;
         // rect.localPosition = new Vector3(re,pos.y,pos.z);
@@ -35,7 +37,7 @@ public class MovingButtons : MonoBehaviour
 
         Vector2 anchoredPosition = rect.anchoredPosition;
         anchoredPosition.x = re;
-        Debug.Log(anchoredPosition);
+        //Debug.Log(anchoredPosition);
         rect.anchoredPosition = anchoredPosition;
     }
 }
