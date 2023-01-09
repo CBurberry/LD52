@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CollisonCheck : MonoBehaviour
 {
 
     public GameObject correctParticleSys;
     public Transform rowTransform;
-    public string keyUpTag = "KeyUp";
-    public string keyDownTag = "KeyDown";
-    public string keyLeftTag = "KeyLeft";
-    public string keyRightTag = "KeyRight";
+    private string keyUpTag = "KeyUp";
+    private string keyDownTag = "KeyDown";
+    private string keyLeftTag = "KeyLeft";
+    private string keyRightTag = "KeyRight";
     public float score = 0f;
     public float scoreInceasePerKey = 5f;
 
@@ -25,10 +26,16 @@ public class CollisonCheck : MonoBehaviour
     public Sprite neutral;
     public Sprite sad;
 
-    private int notesHit = 0;
-    private int notes = 0;
+    [SerializeField] private int notesHit = 0;
+    [SerializeField] private int notes = 0;
 
-    private float percent = 0;
+    [SerializeField] private float percent;
+
+    public AudioClip hitClip;
+    public AudioSource audioSFX;
+
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI percentText;
 
 
     private void Start()
@@ -42,26 +49,29 @@ public class CollisonCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) && objectsInContactUp[0])
+        if (Input.GetKeyDown(KeyCode.UpArrow) && objectsInContactUp.Count > 0)
         {
         Debug.Log("UP PRESS");
         KeyUpPressed();
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow) && objectsInContactDown[0])
+        if (Input.GetKeyDown(KeyCode.DownArrow) && objectsInContactDown.Count > 0)
         {
         Debug.Log("Down PRESS");
         KeyDownPressed();
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && objectsInContactLeft[0])
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && objectsInContactLeft.Count > 0)
         {
         KeyLeftPressed();
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow) && objectsInContactRight[0])
+        if (Input.GetKeyDown(KeyCode.RightArrow) && objectsInContactRight.Count > 0)
         {
         KeyRightPressed();
         }
         
-        percent = notesHit/notes*100;
+        if (notesHit != 0)
+        {
+        percent = ((float)notesHit/(float)notes)*100;
+        }
         if (percent == 0 || percent <= 80)
         {
             ChangeSpriteNeutral();
@@ -70,10 +80,14 @@ public class CollisonCheck : MonoBehaviour
         {
             ChangeSprite();
         }
-        if (percent <= 50)
+        if (percent <= 50 && percent != 0)
         {
             ChangeSpriteSad();
         }
+        Debug.Log(score.ToString());
+        Debug.Log(scoreText);
+        scoreText.text = score.ToString();
+        percentText.text = percent.ToString();
 
     }
 
@@ -138,13 +152,17 @@ public class CollisonCheck : MonoBehaviour
             Debug.Log("Up is pressed upon collision");
             float overlap = CalculateOverlap(GetComponent<BoxCollider2D>(), objectsInContactUp[0].GetComponent<BoxCollider2D>());
             Debug.Log(overlap);
-            if(correctParticleSys)
-            {Instantiate(correctParticleSys, objectsInContactUp[0].transform.position, this.transform.rotation);}
-            score = score + (scoreInceasePerKey * overlap / 50);
+            // if(correctParticleSys)
+            // {Instantiate(correctParticleSys, objectsInContactUp[0].transform.position, this.transform.rotation);}
+            score = score + (scoreInceasePerKey * overlap / 100);
             ChangeSprite();
             Destroy(objectsInContactUp[0]);
             //objectsInContactUp.Remove(objectsInContactUp[0]);
             notesHit++;
+            if(audioSFX && hitClip)
+                {audioSFX.clip = hitClip;
+                audioSFX.pitch = Random.Range(0.9f, 1.10f);
+                audioSFX.Play();}
         }
 
     }
@@ -156,12 +174,16 @@ public class CollisonCheck : MonoBehaviour
             Debug.Log("Down is pressed upon collision");
             float overlap = CalculateOverlap(GetComponent<BoxCollider2D>(), objectsInContactDown[0].GetComponent<BoxCollider2D>());
             Debug.Log(overlap);
-            if(correctParticleSys)
-                {Instantiate(correctParticleSys, objectsInContactDown[0].transform.position, this.transform.rotation);}
+            // if(correctParticleSys)
+            //     {Instantiate(correctParticleSys, objectsInContactDown[0].transform.position, this.transform.rotation);}
             score = score + (scoreInceasePerKey * overlap / 50);
             Destroy(objectsInContactDown[0]);
             //objectsInContactDown.Remove(objectsInContactDown[0]);
             notesHit++;
+            if(audioSFX && hitClip)
+                {audioSFX.clip = hitClip;
+                audioSFX.pitch = Random.Range(0.9f, 1.10f);
+                audioSFX.Play();}
         }
 
 
@@ -174,12 +196,16 @@ public class CollisonCheck : MonoBehaviour
             Debug.Log("Left is pressed upon collision");
             float overlap = CalculateOverlap(GetComponent<BoxCollider2D>(), objectsInContactLeft[0].GetComponent<BoxCollider2D>());
             Debug.Log(overlap);
-            if(correctParticleSys)
-                {Instantiate(correctParticleSys, objectsInContactLeft[0].transform.position, this.transform.rotation);}
+            // if(correctParticleSys)
+            //     {Instantiate(correctParticleSys, objectsInContactLeft[0].transform.position, this.transform.rotation);}
             score = score + (scoreInceasePerKey * overlap / 50);
             Destroy(objectsInContactLeft[0]);
             //objectsInContactLeft.Remove(objectsInContactLeft[0]);
             notesHit++;
+            if(audioSFX && hitClip)
+                {audioSFX.clip = hitClip;
+                audioSFX.pitch = Random.Range(0.9f, 1.10f);
+                audioSFX.Play();}
         }
 
         
@@ -192,12 +218,17 @@ public class CollisonCheck : MonoBehaviour
             Debug.Log("Right is pressed upon collision");
             float overlap = CalculateOverlap(GetComponent<BoxCollider2D>(), objectsInContactRight[0].GetComponent<BoxCollider2D>());
             Debug.Log(overlap);
-            if(correctParticleSys)
-                {Instantiate(correctParticleSys, objectsInContactRight[0].transform.position, this.transform.rotation);}
+            // if(correctParticleSys)
+            //     {Instantiate(correctParticleSys, objectsInContactRight[0].transform.position, this.transform.rotation);}
             score = score + (scoreInceasePerKey * overlap / 50);
             Destroy(objectsInContactRight[0]);
             //objectsInContactRight.Remove(objectsInContactRight[0]);
-            notesHit++;
+            notesHit++;            
+            if(audioSFX && hitClip)
+                {audioSFX.clip = hitClip;
+                audioSFX.pitch = Random.Range(0.9f, 1.10f);
+                audioSFX.Play();}
+
         }
 
         

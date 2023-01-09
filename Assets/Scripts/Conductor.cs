@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 
 public class Conductor : MonoBehaviour
 {
@@ -74,6 +75,12 @@ public class Conductor : MonoBehaviour
         }
 
 
+        if ((musicSource.clip.length + 4) <= songPosition)
+        {
+            Debug.Log("End");
+            SceneManager.LoadScene("Ending");
+        }
+        
 
     }
     

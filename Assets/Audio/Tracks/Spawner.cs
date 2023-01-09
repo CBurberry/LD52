@@ -25,10 +25,12 @@ public class Spawner : MonoBehaviour
     public int doubleHitVolume = 6;
     float volumeAverage;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -41,12 +43,12 @@ public class Spawner : MonoBehaviour
             //Debug.Log(lastBeat);
             ///// add one to the beat iteration
             lastBeat++;
-            
+            CalcFreq();
             /////spawn//////
             Spawn();
         }
 
-        CalcFreq();
+        
         
     }
 
@@ -59,7 +61,7 @@ public class Spawner : MonoBehaviour
             volumeAverage = volumeAverage + freq;
         }
         volumeAverage = volumeAverage / 8;
-        Debug.Log("Volume =" + volumeAverage);
+        //Debug.Log("Volume =" + volumeAverage);
         if (volumeAverage >= doubleHitVolume)
         {
             maxButtons = 2;
@@ -82,7 +84,7 @@ public class Spawner : MonoBehaviour
         resetLimiter = true;
         maxButtons--;
         }
-        if( freqBand[7] >= (spawnFactor*0.2) && freqBand[7] >= (limiter*0.8) && maxButtons > 0)
+        if( freqBand[7] >= (spawnFactor*0.18) && freqBand[7] >= (limiter*0.7) && maxButtons > 0)
         {        
         ////spawn the thing/////
         //ADD A SPAWN IN HERE FOR UP
@@ -93,7 +95,7 @@ public class Spawner : MonoBehaviour
 
 
 
-        if(freqBand[3] > (spawnFactor*0.3) && freqBand[3] >= limiter && maxButtons > 0) //blockers
+        if(freqBand[3] > (spawnFactor*0.32) && freqBand[3] >= (limiter*1) && maxButtons > 0) //blockers
         {////spawn the thing/////
         //ADD A SPAWN IN HERE FOR LEFT
         buttonSpawner.Instantiate2();
