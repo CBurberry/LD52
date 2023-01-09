@@ -9,12 +9,15 @@ public class Spawner : MonoBehaviour
     [SerializeField] Conductor beatManager;
     private int lastBeat = 0;
     public float spawnFactor;
-    public float obstacleRate;
+    
+    public float bassRate;
 
     [SerializeField] float[] spectrum = new float[512];
     [SerializeField] float[] freqBand = new float[8];
     [SerializeField] GameObject[] audioVis;
     [SerializeField] bool visualizer;
+
+    private float limiter = 0;
 
     public ButtonSpawner buttonSpawner;
 
@@ -45,34 +48,49 @@ public class Spawner : MonoBehaviour
     {
         //CalcFreq();
         ////if freq a certain amp, spawn relative to 5 - 10 
+        Debug.Log(limiter);
+        limiter --;
+        bool resetLimiter = false;
         
-        Debug.Log(freqBand[2]);
-        if(freqBand[2] > (spawnFactor*0.5 / obstacleRate)) //blockers
+        if(freqBand[2] > (spawnFactor*0.5 / bassRate) && freqBand[2] >= limiter && freqBand[1] >= limiter) //blockers
         {////spawn the thing/////
         Debug.Log("Spawn");
         //ADD A SPAWN IN HERE FOR DOWN
+        //limiter = Mathf.Max(limiter, freqBand[2]);
         buttonSpawner.Instantiate1();
+        resetLimiter = true;
         }
-
-        if(freqBand[4] > (spawnFactor*0.5/obstacleRate)) //blockers
-        {////spawn the thing/////
-        //ADD A SPAWN IN HERE FOR LEFT
-        buttonSpawner.Instantiate2();
-        }
-        
-        if( freqBand[6] >= (spawnFactor*0.4) || freqBand[5] >= (spawnFactor*0.4))
-        {        
-        ////spawn the thing/////
-        //ADD A SPAWN IN HERE FOR RIGHT
-        buttonSpawner.Instantiate3();
-        }
-
-        if( freqBand[7] >= (spawnFactor*0.4) || freqBand[5] >= (spawnFactor*0.4))
+        if( freqBand[7] >= (spawnFactor*0.3) && freqBand[7] >= limiter)
         {        
         ////spawn the thing/////
         //ADD A SPAWN IN HERE FOR UP
         buttonSpawner.Instantiate0();
+        resetLimiter = true;
         }
+
+        if( freqBand[6] >= (spawnFactor*0.5) && freqBand[6] >= limiter)
+        {        
+        ////spawn the thing/////
+        //ADD A SPAWN IN HERE FOR RIGHT
+        buttonSpawner.Instantiate3();
+        resetLimiter = true;
+        }
+
+        if(freqBand[4] > (spawnFactor*0.4) && freqBand[4] >= limiter) //blockers
+        {////spawn the thing/////
+        //ADD A SPAWN IN HERE FOR LEFT
+        buttonSpawner.Instantiate2();
+        resetLimiter = true;
+        }
+        
+        if (resetLimiter)
+        {
+            limiter = Mathf.Max(limiter, freqBand[7]);
+            limiter = Mathf.Max(limiter, freqBand[4]);
+            limiter = Mathf.Max(limiter, freqBand[6]);
+        }
+
+
     }
 
 

@@ -168,8 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beatManager: {fileID: 343096440}
-  spawnFactor: 2
-  obstacleRate: 2
+  spawnFactor: 4.5
+  bassRate: 0.6
   spectrum:
   - 0
   - 0
@@ -2680,7 +2680,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 8981657547076528823, guid: 389374a9befdae94aa49bd17a5185f4b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 4c4b21a43d0d9f24d8c48647a28d21b7, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
