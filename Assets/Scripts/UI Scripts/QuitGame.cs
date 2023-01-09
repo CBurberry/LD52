@@ -10,4 +10,8 @@ public class QuitGame : MonoBehaviour
         // Quit the game
         Application.Quit();
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q)) { Application.Quit(); }
+    }
 }
