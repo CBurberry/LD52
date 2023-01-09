@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Key
+  - KeyUp
+  - KeyDown
+  - KeyLeft
+  - KeyRight
   layers:
   - Default
   - TransparentFX
