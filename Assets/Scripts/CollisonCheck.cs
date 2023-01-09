@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class CollisonCheck : MonoBehaviour
 {
-    public string keyTag = "Key";
+
+    public GameObject correctParticleSys;
+    public Transform rowTransform;
+    public string keyUpTag = "KeyUp";
+    public string keyDownTag = "KeyDown";
+    public string keyLeftTag = "KeyLeft";
+    public string keyRightTag = "KeyRight";
     public float score = 0f;
     public float scoreInceasePerKey = 5f;
 
@@ -25,19 +31,12 @@ public class CollisonCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        KeyUpPressed();
+        KeyDownPressed();
+        KeyLeftPressed();
+        KeyRightPressed();
+        
         // Check if the player pressed the "space" key
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if(objectsInContact[0])
-            {Debug.Log("Up is pressed upon collision");
-            float overlap = CalculateOverlap(GetComponent<BoxCollider2D>(), objectsInContact[0].GetComponent<BoxCollider2D>());
-            Debug.Log(overlap);
-            score = score + (scoreInceasePerKey*overlap/50);
-            ChangeSprite();
-            Destroy(objectsInContact[0]);
-            objectsInContact.Remove(objectsInContact[0]);}
-
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D coll)
@@ -45,21 +44,33 @@ public class CollisonCheck : MonoBehaviour
         
         if (coll != null)
         {
-            if (coll.gameObject.CompareTag(keyTag))
-            {
-                //Debug.Log(coll);
-                objectsInContact.Add(coll.gameObject);
+            if (coll.gameObject.CompareTag(keyUpTag))
+            {//Debug.Log(coll);
+             objectsInContact.Add(coll.gameObject);
+            }
+            if (coll.gameObject.CompareTag(keyDownTag))
+            {//Debug.Log(coll);
+             objectsInContact.Add(coll.gameObject);}
+            if (coll.gameObject.CompareTag(keyLeftTag))
+            {//Debug.Log(coll);
+             objectsInContact.Add(coll.gameObject);}
+            if (coll.gameObject.CompareTag(keyRightTag))
+            {//Debug.Log(coll);
+             objectsInContact.Add(coll.gameObject);
             }
         }
 
 
     }
+
+
     private void OnTriggerExit2D(Collider2D coll)
     {
         
         if (coll != null)
         {
-            if (coll.gameObject.CompareTag(keyTag))
+            
+            if (coll.gameObject.CompareTag(keyUpTag))
             {
                 Debug.Log(coll);
                 objectsInContact.Remove(coll.gameObject);
@@ -69,6 +80,79 @@ public class CollisonCheck : MonoBehaviour
         ChangeSpriteSad();
 
 
+    }
+
+    private void KeyUpPressed()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (objectsInContact[0])
+            {
+                Debug.Log("Up is pressed upon collision");
+                float overlap = CalculateOverlap(GetComponent<BoxCollider2D>(), objectsInContact[0].GetComponent<BoxCollider2D>());
+                Debug.Log(overlap);
+                Instantiate(correctParticleSys, objectsInContact[0].transform.position, this.transform.rotation);
+                score = score + (scoreInceasePerKey * overlap / 50);
+                ChangeSprite();
+                Destroy(objectsInContact[0]);
+                objectsInContact.Remove(objectsInContact[0]);
+            }
+
+        }
+    }
+    private void KeyDownPressed()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (objectsInContact[0])
+            {
+                Debug.Log("Down is pressed upon collision");
+                float overlap = CalculateOverlap(GetComponent<BoxCollider2D>(), objectsInContact[0].GetComponent<BoxCollider2D>());
+                Debug.Log(overlap);
+                Instantiate(correctParticleSys, objectsInContact[0].transform.position, this.transform.rotation);
+                score = score + (scoreInceasePerKey * overlap / 50);
+                ChangeSprite();
+                Destroy(objectsInContact[0]);
+                objectsInContact.Remove(objectsInContact[0]);
+            }
+
+        }
+    }
+    private void KeyLeftPressed()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (objectsInContact[0])
+            {
+                Debug.Log("Left is pressed upon collision");
+                float overlap = CalculateOverlap(GetComponent<BoxCollider2D>(), objectsInContact[0].GetComponent<BoxCollider2D>());
+                Debug.Log(overlap);
+                Instantiate(correctParticleSys, objectsInContact[0].transform.position, this.transform.rotation);
+                score = score + (scoreInceasePerKey * overlap / 50);
+                ChangeSprite();
+                Destroy(objectsInContact[0]);
+                objectsInContact.Remove(objectsInContact[0]);
+            }
+
+        }
+    }
+    private void KeyRightPressed()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (objectsInContact[0])
+            {
+                Debug.Log("Right is pressed upon collision");
+                float overlap = CalculateOverlap(GetComponent<BoxCollider2D>(), objectsInContact[0].GetComponent<BoxCollider2D>());
+                Debug.Log(overlap);
+                Instantiate(correctParticleSys, objectsInContact[0].transform.position, this.transform.rotation);
+                score = score + (scoreInceasePerKey * overlap / 50);
+                ChangeSprite();
+                Destroy(objectsInContact[0]);
+                objectsInContact.Remove(objectsInContact[0]);
+            }
+
+        }
     }
 
     public void ChangeSprite() 

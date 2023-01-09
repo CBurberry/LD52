@@ -107,5 +107,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: KeyUp
       objectReference: {fileID: 0}
+    - target: {fileID: 8078756600452796787, guid: 5cd2828c7c3c500498acbaf664954a37, type: 3}
+      propertyPath: m_TagString
+      value: KeyUp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cd2828c7c3c500498acbaf664954a37, type: 3}
