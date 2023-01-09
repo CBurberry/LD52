@@ -20,6 +20,7 @@ public class Conductor : MonoBehaviour
 
     //Current song position, in beats
     public float songPositionInBeats;
+    public static float songPositionInBeatsStatic;
 
     //How many seconds have passed since the song started
     public float dspSongTime;
@@ -28,6 +29,8 @@ public class Conductor : MonoBehaviour
     public AudioSource musicSource;
 
     [SerializeField] private Slider songprogress;
+
+    public static float timer;
 
     // 
     
@@ -59,6 +62,17 @@ public class Conductor : MonoBehaviour
 
         songprogress.value = songPosition;
         songPositionStatic = songPosition;
+        songPositionInBeatsStatic = songPositionInBeats;
+        
+        float currentBeat = Mathf.Floor(songPositionInBeats);
+
+        timer = 2*(songPositionInBeats - currentBeat) - 1;
+
+        if (currentBeat%2==0)
+        {
+            timer = 1- 2*(songPositionInBeats - currentBeat);
+        }
+
 
 
     }

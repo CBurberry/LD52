@@ -14,6 +14,11 @@ public class MovingButtons : MonoBehaviour
         //spawntime = timeline time
         rect = this.GetComponent<RectTransform>();
         spawnTime = ButtonSpawner.timelineTime;
+
+        Vector2 anchoredPosition = rect.anchoredPosition;
+        anchoredPosition.x = 1444;
+        //Debug.Log(anchoredPosition);
+        rect.anchoredPosition = anchoredPosition;
     }
 
     // Start is called before the first frame update
@@ -39,5 +44,10 @@ public class MovingButtons : MonoBehaviour
         anchoredPosition.x = re;
         //Debug.Log(anchoredPosition);
         rect.anchoredPosition = anchoredPosition;
+
+        if (re <= -300)
+        {
+            Destroy(gameObject);
+        }
     }
 }
