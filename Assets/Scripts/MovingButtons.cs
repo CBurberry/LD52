@@ -7,6 +7,8 @@ public class MovingButtons : MonoBehaviour
 {
     [SerializeField] private float spawnTime;
     private RectTransform rect;
+
+    private float width;
     
     // Start is called before the first frame update
     void Awake()
@@ -19,6 +21,8 @@ public class MovingButtons : MonoBehaviour
         anchoredPosition.x = 1444;
         //Debug.Log(anchoredPosition);
         rect.anchoredPosition = anchoredPosition;
+
+        width =  rect.rect.width;
     }
 
     // Start is called before the first frame update

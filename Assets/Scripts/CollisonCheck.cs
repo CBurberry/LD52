@@ -32,7 +32,7 @@ public class CollisonCheck : MonoBehaviour
             {Debug.Log("Up is pressed upon collision");
             float overlap = CalculateOverlap(GetComponent<BoxCollider2D>(), objectsInContact[0].GetComponent<BoxCollider2D>());
             Debug.Log(overlap);
-            score = score + (scoreInceasePerKey*overlap);
+            score = score + (scoreInceasePerKey*overlap/50);
             ChangeSprite();
             Destroy(objectsInContact[0]);
             objectsInContact.Remove(objectsInContact[0]);}
