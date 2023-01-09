@@ -169,7 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   beatManager: {fileID: 343096440}
   spawnFactor: 4.5
-  bassRate: 0.6
+  bassRate: 0.55
   spectrum:
   - 0
   - 0
@@ -695,6 +695,8 @@ MonoBehaviour:
   audioVis: []
   visualizer: 0
   buttonSpawner: {fileID: 1435515201}
+  maxButtons: 1
+  doubleHitVolume: 6
 --- !u!1 &134948150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1784,10 +1786,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdc3e31907dfbd24e9273afb541f3c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyTag: Key
+  correctParticleSys: {fileID: 0}
+  rowTransform: {fileID: 0}
+  keyUpTag: KeyUp
+  keyDownTag: KeyDown
+  keyLeftTag: KeyLeft
+  keyRightTag: KeyRight
   score: 0
   scoreInceasePerKey: 5
-  objectsInContact: []
+  objectsInContactUp: []
+  objectsInContactDown: []
+  objectsInContactLeft: []
+  objectsInContactRight: []
   spriteRenderer: {fileID: 1206986906}
   happy: {fileID: 21300000, guid: f9bb2b94f5d8d7f41894f387d5b3ccd1, type: 3}
   neutral: {fileID: 21300000, guid: 2c36f8050f152a24b9ab886facde5b53, type: 3}
@@ -2381,9 +2391,9 @@ PlayableDirector:
   - key: {fileID: 5540264698902559516, guid: 838f335b8572c1943b41be10bda899e3, type: 2}
     value: {fileID: 1347227860}
   - key: {fileID: 1837101183491510227, guid: 647b7f4e3a04e474baff1ec681805760, type: 2}
-    value: {fileID: 1347227860}
-  - key: {fileID: 5126062073080504382, guid: 647b7f4e3a04e474baff1ec681805760, type: 2}
     value: {fileID: 1930582579}
+  - key: {fileID: 5126062073080504382, guid: 647b7f4e3a04e474baff1ec681805760, type: 2}
+    value: {fileID: 1347227860}
   m_ExposedReferences:
     m_References:
     - ad859bd2d41699b428202905c78500e4: {fileID: 1435515201}

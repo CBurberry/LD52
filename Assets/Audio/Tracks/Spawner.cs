@@ -21,6 +21,10 @@ public class Spawner : MonoBehaviour
 
     public ButtonSpawner buttonSpawner;
 
+    public int maxButtons = 1;
+    public int doubleHitVolume = 6;
+    float volumeAverage;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,63 +38,88 @@ public class Spawner : MonoBehaviour
         if(beatManager.songPositionInBeats >= lastBeat*0.5)
         {
             
-            Debug.Log(lastBeat);
+            //Debug.Log(lastBeat);
             ///// add one to the beat iteration
             lastBeat++;
-            CalcFreq();
+            
             /////spawn//////
             Spawn();
         }
+
+        CalcFreq();
         
     }
 
     void Spawn()
     {
+        
+        //Volume limiter for how many notes in one row
+        foreach (float freq in freqBand)
+        {
+            volumeAverage = volumeAverage + freq;
+        }
+        volumeAverage = volumeAverage / 8;
+        Debug.Log("Volume =" + volumeAverage);
+        if (volumeAverage >= doubleHitVolume)
+        {
+            maxButtons = 2;
+            
+        }
+
         //CalcFreq();
         ////if freq a certain amp, spawn relative to 5 - 10 
-        Debug.Log(limiter);
+        //Debug.Log(limiter);
         limiter --;
+        //limiter --;
         bool resetLimiter = false;
         
-        if(freqBand[2] > (spawnFactor*0.5 / bassRate) && freqBand[2] >= limiter && freqBand[1] >= limiter) //blockers
+        if(freqBand[2] > (spawnFactor*0.5 / bassRate) && freqBand[2] >= limiter && freqBand[1] >= limiter && maxButtons > 0) //blockers
         {////spawn the thing/////
-        Debug.Log("Spawn");
+        //Debug.Log("Spawn");
         //ADD A SPAWN IN HERE FOR DOWN
         //limiter = Mathf.Max(limiter, freqBand[2]);
         buttonSpawner.Instantiate1();
         resetLimiter = true;
+        maxButtons--;
         }
-        if( freqBand[7] >= (spawnFactor*0.3) && freqBand[7] >= limiter)
+        if( freqBand[7] >= (spawnFactor*0.2) && freqBand[7] >= (limiter*0.8) && maxButtons > 0)
         {        
         ////spawn the thing/////
         //ADD A SPAWN IN HERE FOR UP
         buttonSpawner.Instantiate0();
         resetLimiter = true;
+        maxButtons--;
         }
 
-        if( freqBand[6] >= (spawnFactor*0.5) && freqBand[6] >= limiter)
+
+
+        if(freqBand[3] > (spawnFactor*0.3) && freqBand[3] >= limiter && maxButtons > 0) //blockers
+        {////spawn the thing/////
+        //ADD A SPAWN IN HERE FOR LEFT
+        buttonSpawner.Instantiate2();
+        resetLimiter = true;
+        maxButtons--;
+        }
+        
+        if( freqBand[5] >= (spawnFactor*0.55) && freqBand[5] >= limiter && maxButtons > 0)
         {        
         ////spawn the thing/////
         //ADD A SPAWN IN HERE FOR RIGHT
         buttonSpawner.Instantiate3();
         resetLimiter = true;
+        maxButtons--;
         }
 
-        if(freqBand[4] > (spawnFactor*0.4) && freqBand[4] >= limiter) //blockers
-        {////spawn the thing/////
-        //ADD A SPAWN IN HERE FOR LEFT
-        buttonSpawner.Instantiate2();
-        resetLimiter = true;
-        }
-        
+        Debug.Log("Max Buttons =" + maxButtons);
         if (resetLimiter)
         {
             limiter = Mathf.Max(limiter, freqBand[7]);
-            limiter = Mathf.Max(limiter, freqBand[4]);
-            limiter = Mathf.Max(limiter, freqBand[6]);
+            limiter = Mathf.Max(limiter, freqBand[3]);
+            limiter = Mathf.Max(limiter, freqBand[5]);
+            maxButtons = 1;
         }
 
-
+        
     }
 
 
