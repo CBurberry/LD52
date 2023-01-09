@@ -57,14 +57,14 @@ public class Spawner : MonoBehaviour
         if(freqBand[4] > (spawnFactor*0.5/obstacleRate)) //blockers
         {////spawn the thing/////
         //ADD A SPAWN IN HERE FOR LEFT
-        buttonSpawner.Instantiate1();
+        buttonSpawner.Instantiate2();
         }
         
         if( freqBand[6] >= (spawnFactor*0.4) || freqBand[5] >= (spawnFactor*0.4))
         {        
         ////spawn the thing/////
         //ADD A SPAWN IN HERE FOR RIGHT
-        buttonSpawner.Instantiate2();
+        buttonSpawner.Instantiate3();
         }
 
         if( freqBand[7] >= (spawnFactor*0.4) || freqBand[5] >= (spawnFactor*0.4))
